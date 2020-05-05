@@ -1,3 +1,13 @@
+The following people have contributed to ZSim (And have given permission or requested to be added to this list. Any without permission will simply appear as 'Anonymous Contributor')
+
+* Tara Piccari	/	zontreck		(2020)
+
+
+
+
+
+
+
 The following people have contributed to OpenSim (Thank you for your effort!) 
 
 = Current OpenSim Developers (in very rough order of appearance) =
