@@ -7,7 +7,15 @@ dotnet build -c Release
 cd ..
 title Step: Generate Project and Solution
 :nbuild
-nbuild\bin\Release\netcoreapp3.0\nBuild.exe nbuild.config
+nbuild\bin\Release\netcoreapp3.0\nBuild.exe --delete nbuild.config
+echo.
+timeout 2
+:load
+nbuild\bin\Release\netcoreapp3.0\nBuild.exe --load nbuild.config
+echo.
+echo.
+echo If you do not wish to automatically compile you may exit this window now
+pause
 :compile
 title Step: Compile zSim
 dotnet build -c Release

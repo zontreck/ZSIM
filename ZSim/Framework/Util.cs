@@ -49,7 +49,7 @@ using System.Threading;
 using log4net;
 using log4net.Appender;
 using Nini.Config;
-using Nwc.XmlRpc;
+using XmlRpcCore;
 using OpenMetaverse;
 using OpenMetaverse.StructuredData;
 using Amib.Threading;

@@ -1,0 +1,6 @@
+[submodule "libremetaverse"]
+	path = libremetaverse
+	url = https://github.com/cinderblocks/libremetaverse
+[submodule "ipnetwork"]
+	path = ipnetwork
+	url = https://github.com/lduchosal/ipnetwork.git

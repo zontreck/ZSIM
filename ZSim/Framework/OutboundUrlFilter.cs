@@ -31,7 +31,6 @@ using System.Linq;
 using System.Net;
 using System.Reflection;
 using log4net;
-using LukeSkywalker.IPNetwork;
 using Nini.Config;
 
 namespace ZSim.Framework

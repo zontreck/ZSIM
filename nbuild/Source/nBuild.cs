@@ -10,9 +10,10 @@ namespace nBuild.Source
 {
     class nBuild
     {
+        private static readonly object flock = new object();
         public static void Main(string[] args)
         {
-            args = new[] { "--load", "nbuild.example.json" };
+            //args = new[] { "--load", "nbuild.example.json" };
             // Check arguments
             if (args.Length == 0)
             {
@@ -28,18 +29,37 @@ namespace nBuild.Source
                     ProjectFolder = ".",
                     ProjectReferences = new List<ProjectReference>(),
                     Excludes = new List<string>(),
-                    OutputType = "exe"
+                    OutputType = "exe",
+                    OutputPath = "bin"
                 };
+                ProjectReference ref1 = new ProjectReference();
+                ref1.PackageReference = "ExampleProjRef";
+
+                exampleEntry.ProjectReferences.Add(ref1);
+
+                ProjectReference ref2 = new ProjectReference();
+                ref2.ReferenceName = "ExampleComRef";
+                ref2.ReferencePath = "../example/path/com.exe";
+
+                exampleEntry.ProjectReferences.Add(ref2);
                 example.Projects.Add(exampleEntry);
 
-                File.WriteAllText("nbuild.example.json", JsonConvert.SerializeObject(example, Formatting.Indented));
-                Environment.Exit(1);
+                lock (flock)
+                {
+
+                    File.WriteAllText("nbuild.example.json", JsonConvert.SerializeObject(example, Formatting.Indented));
+                    Environment.Exit(1);
+                }
             }
             else
             {
                 // Proceed
-                if(args[0] == "--load")
+                if(args[0] != "")
                 {
+                    bool delMode = false;
+                    if (args[0] == "--delete") delMode = true;
+
+
                     string configFile = args[1];
                     nSolution sol = JsonConvert.DeserializeObject<nSolution>(File.ReadAllText(configFile));
                     // start constructing the solution
@@ -52,7 +72,11 @@ namespace nBuild.Source
                     sb.AppendLine("VisualStudioVersion = 16.0.29613.14");
                     sb.AppendLine("MinimumVisualStudioVersion = 10.0.40219.1");
 
-                    File.AppendAllText(sol.SolutionName+".sln", sb.ToString());
+                    lock (flock)
+                    {
+
+                        File.AppendAllText(sol.SolutionName + ".sln", sb.ToString());
+                    }
 
                     sb.Clear();
 
@@ -81,36 +105,83 @@ namespace nBuild.Source
 
                         // now generate the csproj
 
+                        if (entry.Framework == null) entry.Framework = "netcoreapp3.0";
+
                         StringBuilder csproj = new StringBuilder();
                         csproj.AppendLine("<Project Sdk=\"Microsoft.NET.Sdk\">");
                         csproj.AppendLine("<PropertyGroup>" +
                             "\n<OutputType>" + entry.OutputType + "</OutputType>");
-                        csproj.AppendLine("<TargetFramework>netcoreapp3.0</TargetFramework>");
+                        csproj.AppendLine("<TargetFramework>"+entry.Framework+"</TargetFramework>");
+                        if (entry.UnsafeBlocks)
+                            csproj.AppendLine("<AllowUnsafeBlocks>true</AllowUnsafeBlocks>");
                         csproj.AppendLine("<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>");
                         csproj.AppendLine("<GenerateAssemblyInfo>false</GenerateAssemblyInfo>");
                         csproj.AppendLine("<Configurations>Debug;Release</Configurations>");
-                        csproj.AppendLine("<OutputPath>"+Directory.GetCurrentDirectory().Replace("\\", "/")+"/bin</OutputPath>");
+                        if (entry.OutputPath == null)
+                            csproj.AppendLine("<OutputPath>" + Directory.GetCurrentDirectory().Replace("\\", "/") + "/bin</OutputPath>");
+                        else
+                            csproj.AppendLine("<OutputPath>" + entry.OutputPath + "</OutputPath>");
                         csproj.AppendLine("</PropertyGroup>");
 
                         csproj.AppendLine("<ItemGroup>");
                         foreach(ProjectReference reference in entry.ProjectReferences)
                         {
-                            csproj.AppendLine("<PackageReference Include=\"" + reference.Reference + "\" />");
+                            if (reference.PackageReference != null && reference.ProjectRef==null)
+                            {
+                                csproj.Append("\n<PackageReference Include=\"" + reference.PackageReference + "\" ");
+                                if (reference.PackageVersion != null)
+                                    csproj.Append("Version=\"" + reference.PackageVersion + "\" />");
+                                else
+                                    csproj.Append(" />\n");
+                            }
+                            else if(reference.PackageReference == null && reference.ProjectRef==null)
+                            {
+                                csproj.AppendLine("<Reference Include=\"" + reference.ReferenceName + "\">");
+                                csproj.AppendLine("  <HintPath>" + reference.ReferencePath + "</HintPath>");
+                                csproj.AppendLine("</Reference>");
+                            } else if(reference.PackageReference==null && reference.ProjectRef != null)
+                            {
+                                csproj.AppendLine("<ProjectReference Include=\"" + reference.ProjectRef + "\" />");
+                            }
+                            else
+                            {
+                                csproj.AppendLine("<error>Unknown state</error>");
+                            }
                         }
+
                         csproj.AppendLine("</ItemGroup>");
+                        foreach (string exclu in entry.Excludes)
+                        {
+                            csproj.AppendLine($"<ItemGroup>\n<Compile Remove=\"{exclu}\" />\n<EmbeddedResource Remove=\"{exclu}\" />\n<None Remove=\"{exclu}\" /></ItemGroup>");
+                        }
 
                         csproj.AppendLine("</Project>");
+                        lock (flock)
+                        {
 
+                            if (entry.SolutionEntryOnly == false)
+                                File.WriteAllText(entry.ProjectFolder + "/" + entry.ProjectName + ".csproj", csproj.ToString());
 
-                        File.WriteAllText(entry.ProjectFolder + "/" + entry.ProjectName + ".csproj", csproj.ToString());
+                            if (delMode) File.Delete(entry.ProjectFolder + "/" + entry.ProjectName + ".csproj");
+                        }
                     }
 
                     globalSect.AppendLine("EndGlobalSection");
                     globalSect.AppendLine("GlobalSection(SolutionProperties) = preSolution\nHideSolutionNode = FALSE\nEndGlobalSection\nEndGlobal");
 
-                    File.AppendAllText(sol.SolutionName + ".sln", projectList.ToString());
-                    File.AppendAllText(sol.SolutionName + ".sln", globalSect.ToString());
+                    lock (flock)
+                    {
 
+                        File.AppendAllText(sol.SolutionName + ".sln", projectList.ToString());
+                        File.AppendAllText(sol.SolutionName + ".sln", globalSect.ToString());
+
+
+                        if (delMode)
+                        {
+                            Console.WriteLine("Deleted all generated solution files");
+                            File.Delete(sol.SolutionName + ".sln");
+                        }
+                    }
                 }
             }
 

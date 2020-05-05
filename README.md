@@ -68,17 +68,13 @@ Once you are presented with a prompt that looks like:
 
 You have successfully started ZSim.
 
-If you want to create another user account to login rather than the estate
-account, then type "create user" on the ZSim console and follow the prompts.
 
 # Connecting to your ZSim
 
 By default your sim will be available for login on port 9000. 
 You must use a viewer that supports OpenSim type grids.
 
-
-To login, use the avatar details that you gave for your estate ownership or the
-one you set up using the "create user" command.
+To login to ZSim, use either the estate details, or just login with whatever credentials you want, by default, if the account does not exist it will be created. You can change this setting in Standalone.ini or in Robust.ini
 
 # Bug reports
 
