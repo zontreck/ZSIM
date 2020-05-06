@@ -1,3 +1,26 @@
+Copyright (C ZNI Simulator Project, https://sim.zontreck.dev
+See CONTRIBUTORS.txt for a full list of contributors
+
+This software is provided as is, without any implied, or express warranty.
+Redistribution of this product either as source and binary is permitted,
+provided the following conditions are met:
+	* Copies of the source code are provided alongside the binaries;
+	* Any changes to source code, and or binaries are documented clearly with attached source code in the form of a patch, or a git commit tag;
+	* This license file must be distributed alongside the source code and binaries;
+	* The ZNI Simulator License agreement is not changed or removed without the express written permission from the ZNI Simulator Project
+This software may be used for personal or for business provided that the following conditions are met:
+	* Your business does not intend to compete against, or otherwise try to sabotage the reputation of, The ZNI Simulator Product;
+This software may be derrived to use in other projects provided the following conditions are met:
+	* The ZNI Simulator Project License must remain in the source code, working tree, and alongside any binaries;
+	* Changing the licensing agreement requires written consent from the ZNI Simulator Project
+	* You may not strip bits and pieces of code to use in another project unless that piece of code was previously in the OpenSimulator project, from which the ZNI Simulator Project was derrived.
+	* You may not call ZNI Simulator your own creation, and ZNI Simulator must be credited for our effort in the creation of this product
+	* Any code unique to ZNI Simulator which you want to use in your own product that has a different license, you must acquire written permission to take and use
+
+
+
+
+
 Copyright (c) Contributors, http://opensimulator.org/ 
 See CONTRIBUTORS.TXT for a full list of copyright holders.
 
@@ -12,14 +35,3 @@ modification, are permitted provided that the following conditions are met:
       names of its contributors may be used to endorse or promote products
       derived from this software without specific prior written permission.
 
-THIS SOFTWARE IS PROVIDED BY THE DEVELOPERS ``AS IS'' AND ANY EXPRESS OR
-IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL THE CONTRIBUTORS BE LIABLE FOR ANY
-DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
-GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
-INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER
-IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
-OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
-ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.

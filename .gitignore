@@ -31,6 +31,12 @@
 */*/*/*/*/bin
 */*/*/*/*/*/bin
 */*/*/*/*/*/*/bin
+nbuild/bin
+nbuild/.vs
+nbuild/obj
+nini/obj
+nini/bin
+nini/.vs
 .vs/
 addon-modules/
 bin/Debug/*.dll
