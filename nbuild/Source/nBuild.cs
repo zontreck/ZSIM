@@ -116,7 +116,7 @@ namespace nBuild.Source
                             csproj.AppendLine("<AllowUnsafeBlocks>true</AllowUnsafeBlocks>");
                         csproj.AppendLine("<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>");
                         csproj.AppendLine("<GenerateAssemblyInfo>false</GenerateAssemblyInfo>");
-                        csproj.AppendLine("<AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>");
+                        csproj.AppendLine("<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>");
                         csproj.AppendLine("<Configurations>Debug;Release</Configurations>");
                         if (entry.OutputPath == null)
                             csproj.AppendLine("<OutputPath>" + Directory.GetCurrentDirectory().Replace("\\", "/") + "/bin</OutputPath>");

@@ -12,6 +12,8 @@
 *.dll.build
 *.dll
 *.log
+bin/*.json
+
 
 # Ignore .user and .suo files as these are user preference specific
 # http://stackoverflow.com/questions/72298/should-i-add-the-visual-studio-suo-and-user-files-to-source-control
@@ -31,6 +33,7 @@
 */*/*/*/*/bin
 */*/*/*/*/*/bin
 */*/*/*/*/*/*/bin
+
 nbuild/bin
 nbuild/.vs
 nbuild/obj
