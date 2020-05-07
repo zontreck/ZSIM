@@ -43,7 +43,7 @@ using System.Xml;
 using OSHttpServer;
 using tinyHTTPListener = OSHttpServer.OSHttpListener;
 using log4net;
-using Nwc.XmlRpc;
+using XmlRpcCore;
 using ZSim.Framework.Monitoring;
 using OpenMetaverse.StructuredData;
 
@@ -1247,7 +1247,7 @@ namespace ZSim.Framework.Servers.HttpServer
                 xmlRpcResponse = new XmlRpcResponse();
                 // Code set in accordance with http://xmlrpc-epi.sourceforge.net/specs/rfc.fault_codes.php
                 xmlRpcResponse.SetFault(
-                    XmlRpcErrorCodes.SERVER_ERROR_METHOD,
+                    -32601, // System Error
                     String.Format("Requested method [{0}] not found", methodName));
             }
 

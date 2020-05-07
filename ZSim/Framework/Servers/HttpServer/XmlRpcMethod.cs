@@ -26,7 +26,7 @@
  */
 
 using System.Net;
-using Nwc.XmlRpc;
+using XmlRpcCore;
 
 namespace ZSim.Framework.Servers.HttpServer
 {

@@ -120,13 +120,6 @@ namespace ZSim
         /// </value>
         public OpenSimConfigSource ConfigSource { get; private set; }
 
-        protected EnvConfigSource m_EnvConfigSource = new EnvConfigSource();
-
-        public EnvConfigSource envConfigSource
-        {
-            get { return m_EnvConfigSource; }
-        }
-
         public uint HttpServerPort
         {
             get { return m_httpServerPort; }

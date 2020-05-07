@@ -227,7 +227,8 @@ namespace ZSim.Framework
             m_texture = null;
             if (appearance.Texture != null)
             {
-                byte[] tbytes = appearance.Texture.GetBakesBytes();
+                
+                byte[] tbytes = appearance.Texture.GetBytes();
                 m_texture = new Primitive.TextureEntry(tbytes,0,tbytes.Length);
                 if (copyBaked && appearance.m_cacheitems != null)
                     m_cacheitems = (WearableCacheItem[])appearance.m_cacheitems.Clone();
@@ -780,7 +781,7 @@ namespace ZSim.Framework
             OSDArray textures;
             if (sendPV8)
             {
-                byte[] te = m_texture.GetBakesBytes();
+                byte[] te = m_texture.GetBytes();
                 data["te8"] = OSD.FromBinary(te);
             }
             else
@@ -855,7 +856,7 @@ namespace ZSim.Framework
 
             if (needExtra)
             {
-                byte[] te = m_texture.GetBakesBytes();
+                byte[] te = m_texture.GetBytes();
                 data["te8"] = OSD.FromBinary(te);
             }
 

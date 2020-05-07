@@ -40,7 +40,7 @@ namespace ZSim.Framework.Monitoring
     /// </summary>
     public static class StatsLogger
     {
-        private static readonly ILog m_statsLog = LogManager.GetLogger("special.StatsLogger");
+        private static readonly ILog m_statsLog = LogManager.GetLogger("./", "special.StatsLogger");
 
         private static Timer m_loggingTimer;
         private static int m_statsLogIntervalMs = 5000;
