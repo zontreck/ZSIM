@@ -56,6 +56,7 @@ using Amib.Threading;
 using System.Collections.Concurrent;
 using System.Collections.Specialized;
 using System.Web;
+using System.Threading.Tasks;
 
 namespace ZSim.Framework
 {
@@ -1576,7 +1577,7 @@ namespace ZSim.Framework
 
         public static string logFile()
         {
-            foreach (IAppender appender in LogManager.GetRepository().GetAppenders())
+            foreach (IAppender appender in LogManager.GetRepository("/").GetAppenders())
             {
                 if (appender is FileAppender && appender.Name == "LogFileAppender")
                 {
@@ -1589,7 +1590,7 @@ namespace ZSim.Framework
 
         public static string statsLogFile()
         {
-            foreach (IAppender appender in LogManager.GetRepository().GetAppenders())
+            foreach (IAppender appender in LogManager.GetRepository("/").GetAppenders())
             {
                 if (appender is FileAppender && appender.Name == "StatsLogFileAppender")
                 {
@@ -1727,7 +1728,7 @@ namespace ZSim.Framework
 
             return (T)val;
         }
-
+        /*
         public static void MergeEnvironmentToConfig(IConfigSource ConfigSource)
         {
             IConfig enVars = ConfigSource.Configs["Environment"];
@@ -1749,7 +1750,7 @@ namespace ZSim.Framework
                 ConfigSource.ExpandKeyValues();
             }
         }
-
+        */
         public static T ReadSettingsFromIniFile<T>(IConfig config, T settingsClass)
         {
             Type settingsType = settingsClass.GetType();
@@ -2079,7 +2080,12 @@ namespace ZSim.Framework
         public static XmlRpcResponse SendXmlRpcCommand(string url, string methodName, object[] args)
         {
             XmlRpcRequest client = new XmlRpcRequest(methodName, args);
-            return client.Send(url, 6000);
+            Task<object> req = client.Invoke(new System.Net.Http.HttpClient(), url);
+            req.Wait();
+
+
+
+            return (XmlRpcResponse)req.Result;
         }
 
         /// <summary>

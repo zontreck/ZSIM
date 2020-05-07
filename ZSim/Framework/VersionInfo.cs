@@ -29,10 +29,10 @@ namespace ZSim
 {
     public class VersionInfo
     {
-        public const string VersionNumber = "1.0.1.0";
-        public const string AssemblyVersionNumber = "1.0.1.0";
+        public const string VersionNumber = "1.0.5.9";
+        public const string AssemblyVersionNumber = "1.0.5.9";
 
-        public const Flavour VERSION_FLAVOUR = Flavour.Dev;
+        public const Flavour VERSION_FLAVOUR = Flavour.Alpha;
 
         public enum Flavour
         {
@@ -43,7 +43,10 @@ namespace ZSim
             RC3,
             Release,
             Post_Fixes,
-            Extended
+            Extended,
+            Alpha,
+            Beta,
+            PR
         }
 
         public static string Version

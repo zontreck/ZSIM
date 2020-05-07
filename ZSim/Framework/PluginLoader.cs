@@ -24,15 +24,14 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
+/*
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using log4net;
-using Mono.Addins;
 
-namespace ZSim.Framework
+namespace ZSim.Framework.deprecated
 {
     /// <summary>
     /// Exception thrown if an incorrect number of plugins are loaded
@@ -172,6 +171,9 @@ namespace ZSim.Framework
                     filter = filters[ext];
 
                 List<T> loadedPlugins = new List<T>();
+
+                
+                
                 foreach (PluginExtensionNode node in AddinManager.GetExtensionNodes(ext))
                 {
                     log.Info("[PLUGINS]: Trying plugin " + node.Path);
@@ -452,3 +454,4 @@ namespace ZSim.Framework
         }
     }
 }
+*/

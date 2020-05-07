@@ -42,11 +42,12 @@ using System.Xml;
 using System.Xml.Serialization;
 using System.Xml.Linq;
 using log4net;
-using Nwc.XmlRpc;
+using XmlRpcCore;
+using System.Threading;
 using OpenMetaverse.StructuredData;
 using ZSim.Framework.ServiceAuth;
 using XMLResponseHelper = ZSim.Framework.SynchronousRestObjectRequester.XMLResponseHelper;
-
+using System.Threading.Tasks;
 
 namespace ZSim.Framework
 {
@@ -1422,8 +1423,11 @@ namespace ZSim.Framework
                     str = XElement.Parse(str).ToString(SaveOptions.DisableFormatting);
                     WebUtil.LogOutgoingDetail("SEND", reqnum, str);
                 }
-
-                XmlRpcResponse Resp = Req.Send(url, 30000);
+                Task<object> Trequest = Req.Invoke(new System.Net.Http.HttpClient(), url);
+                Trequest.Wait();
+                XmlRpcResponse Resp = (XmlRpcResponse)Trequest.Result;
+                //XmlRpcResponse Resp = Req.Send(url, 30000);
+                
 
                 try
                 {
