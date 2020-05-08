@@ -75,7 +75,7 @@ namespace ZSim.Framework.Servers
         public ServerBase()
         {
             m_startuptime = DateTime.Now;
-            m_version = VersionInfo.Version;
+            m_version = Globals.Version;
             EnhanceVersionInformation();
         }
 
@@ -855,7 +855,7 @@ namespace ZSim.Framework.Servers
         public string GetVersionText()
         {
             return String.Format("Version: {0} (SIMULATION/{1} - SIMULATION/{2})",
-                m_version, VersionInfo.SimulationServiceVersionSupportedMin, VersionInfo.SimulationServiceVersionSupportedMax);
+                m_version, Globals.SimulationServiceVersionSupportedMin, Globals.SimulationServiceVersionSupportedMax);
         }
 
         /// <summary>

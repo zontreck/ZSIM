@@ -29,5 +29,5 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion(ZSim.VersionInfo.AssemblyVersionNumber)]
+[assembly: AssemblyVersion(ZSim.Globals.VerNormal)]
 
