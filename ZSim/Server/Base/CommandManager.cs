@@ -24,7 +24,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
+/*
 
 using System;
 using System.Text;
@@ -32,9 +32,6 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using Mono.Addins.Setup;
-using Mono.Addins;
-using Mono.Addins.Description;
 using ZSim.Framework;
 
 namespace ZSim.Server.Base
@@ -357,3 +354,4 @@ namespace ZSim.Server.Base
         #endregion
     }
 }
+*/

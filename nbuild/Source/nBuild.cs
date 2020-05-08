@@ -125,6 +125,33 @@ namespace nBuild.Source
                         csproj.AppendLine("</PropertyGroup>");
 
                         csproj.AppendLine("<ItemGroup>");
+                        foreach(ProjectReference reference in sol.GlobalReferences)
+                        {
+                            if (reference.PackageReference != null && reference.ProjectRef == null)
+                            {
+                                csproj.Append("\n<PackageReference Include=\"" + reference.PackageReference + "\" ");
+                                if (reference.PackageVersion != null)
+                                    csproj.Append("Version=\"" + reference.PackageVersion + "\" />");
+                                else
+                                    csproj.Append(" />\n");
+                            }
+                            else if (reference.PackageReference == null && reference.ProjectRef == null)
+                            {
+                                csproj.AppendLine("<Reference Include=\"" + reference.ReferenceName + "\">");
+                                csproj.AppendLine("  <HintPath>" + reference.ReferencePath + "</HintPath>");
+                                csproj.AppendLine("</Reference>");
+                            }
+                            else if (reference.PackageReference == null && reference.ProjectRef != null)
+                            {
+                                if (reference.ProjectRef.Contains(entry.ProjectName + ".csproj")) continue;
+                                csproj.AppendLine("<ProjectReference Include=\"" + Path.Combine(Directory.GetCurrentDirectory().Replace("\\", "/"),reference.ProjectRef) + "\" />");
+                            }
+                            else
+                            {
+                                csproj.AppendLine("<error>Unknown state</error>");
+                            }
+
+                        }
                         foreach(ProjectReference reference in entry.ProjectReferences)
                         {
                             if (reference.PackageReference != null && reference.ProjectRef==null)

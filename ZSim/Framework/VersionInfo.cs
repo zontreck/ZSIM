@@ -27,7 +27,7 @@
 
 namespace ZSim
 {
-    public class VersionInfo
+    public class VersionInfo_legacy
     {
         public const string VersionNumber = "1.0.5.9";
         public const string AssemblyVersionNumber = "1.0.5.9";

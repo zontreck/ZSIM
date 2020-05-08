@@ -34,16 +34,18 @@ using System.Net;
 using System.Text;
 using System.Web;
 
+
 namespace ZSim.Framework.Servers.HttpServer
 {
     public interface IOSHttpRequest
     {
+        
         string[] AcceptTypes { get; }
         Encoding ContentEncoding { get; }
         long ContentLength { get; }
         long ContentLength64 { get; }
         string ContentType { get; }
-        HttpCookieCollection Cookies { get; }
+        CookieCollection Cookies { get; }
         bool HasEntityBody { get; }
         NameValueCollection Headers { get; }
         string HttpMethod { get; }

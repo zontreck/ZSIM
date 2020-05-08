@@ -56,7 +56,7 @@ namespace pCampBot
         [STAThread]
         public static void Main(string[] args)
         {
-            XmlConfigurator.Configure();
+            XmlConfigurator.Configure(LogManager.GetRepository("./"));
 
             IConfig commandLineConfig = ParseConfig(args);
             if (commandLineConfig.Get("help") != null || commandLineConfig.Get("loginuri") == null)

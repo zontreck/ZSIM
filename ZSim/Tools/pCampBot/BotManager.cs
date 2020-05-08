@@ -185,7 +185,7 @@ namespace pCampBot
 
             // Make log4net see the console
             //
-            ILoggerRepository repository = LogManager.GetRepository();
+            ILoggerRepository repository = LogManager.GetRepository("./");
             IAppender[] appenders = repository.GetAppenders();
             OpenSimAppender consoleAppender = null;
 

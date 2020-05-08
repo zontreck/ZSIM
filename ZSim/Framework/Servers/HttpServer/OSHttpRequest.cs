@@ -73,16 +73,16 @@ namespace ZSim.Framework.Servers.HttpServer
         }
         private string m_contentType;
 
-        public HttpCookieCollection Cookies
+        public CookieCollection Cookies
         {
             get
             {
                 RequestCookies cookies = m_request.Cookies;
-                HttpCookieCollection httpCookies = new HttpCookieCollection();
+                CookieCollection httpCookies = new CookieCollection();
                 if(cookies != null)
                 {
                     foreach (RequestCookie cookie in cookies)
-                        httpCookies.Add(new HttpCookie(cookie.Name, cookie.Value));
+                        httpCookies.Add(new Cookie(cookie.Name, cookie.Value));
                 }
                 return httpCookies;
             }

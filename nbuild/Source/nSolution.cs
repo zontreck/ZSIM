@@ -8,5 +8,6 @@ namespace nBuild.Source
     {
         public List<ProjectEntry> Projects;
         public string SolutionName;
+        public List<ProjectReference> GlobalReferences;
     }
 }

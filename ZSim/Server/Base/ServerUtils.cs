@@ -36,15 +36,15 @@ using log4net;
 using Nini.Config;
 using ZSim.Framework;
 using OpenMetaverse;
-using Mono.Addins;
 using ZSim.Framework.Servers.HttpServer;
 using ZSim.Framework.Servers;
 using OpenMetaverse.StructuredData; // LitJson is hidden on this
+using ZSim.Addons.ZNILoader;
 
-[assembly:AddinRoot("Robust", ZSim.VersionInfo.VersionNumber)]
+
 namespace ZSim.Server.Base
 {
-    [TypeExtensionPoint(Path="/Robust/Connector", Name="RobustConnector")]
+    [PluginClass(Path="/Robust/Connector", ShortName="RobustConnector")]
     public interface IRobustConnector
     {
         string ConfigName
@@ -72,12 +72,6 @@ namespace ZSim.Server.Base
     {
         static readonly ILog m_log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-        public AddinRegistry Registry
-        {
-            get;
-            private set;
-        }
-
         public IConfigSource Config
         {
             get;
@@ -87,14 +81,6 @@ namespace ZSim.Server.Base
         public PluginLoader(IConfigSource config, string registryPath)
         {
             Config = config;
-
-            Registry = new AddinRegistry(registryPath, ".");
-            //suppress_console_output_(true);
-            AddinManager.Initialize(registryPath);
-            //suppress_console_output_(false);
-            AddinManager.Registry.Update();
-            CommandManager commandmanager = new CommandManager(Registry);
-            AddinManager.AddExtensionNodeHandler("/Robust/Connector", OnExtensionChanged);
         }
 
         private static TextWriter prev_console_;
@@ -119,38 +105,6 @@ namespace ZSim.Server.Base
             {
                 if (prev_console_ != null)
                     System.Console.SetOut(prev_console_);
-            }
-        }
-
-        private void OnExtensionChanged(object s, ExtensionNodeEventArgs args)
-        {
-            IRobustConnector connector = (IRobustConnector)args.ExtensionObject;
-            Addin a = Registry.GetAddin(args.ExtensionNode.Addin.Id);
-
-            if(a == null)
-            {
-                Registry.Rebuild(null);
-                a = Registry.GetAddin(args.ExtensionNode.Addin.Id);
-            }
-
-            switch(args.Change)
-            {
-                case ExtensionChange.Add:
-                    if (a.AddinFile.Contains(Registry.DefaultAddinsFolder))
-                    {
-                        m_log.InfoFormat("[SERVER UTILS]: Adding {0} from registry", a.Name);
-                        connector.PluginPath = System.IO.Path.Combine(Registry.DefaultAddinsFolder,a.Name.Replace(',', '.'));                    }
-                    else
-                    {
-                        m_log.InfoFormat("[SERVER UTILS]: Adding {0} from ./bin", a.Name);
-                        connector.PluginPath = a.AddinFile;
-                    }
-                    LoadPlugin(connector);
-                    break;
-                case ExtensionChange.Remove:
-                    m_log.InfoFormat("[SERVER UTILS]: Removing {0}", a.Name);
-                    UnloadPlugin(connector);
-                    break;
             }
         }
 

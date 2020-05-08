@@ -42,7 +42,6 @@ using OpenMetaverse.StructuredData;
 using log4net;
 using Nini.Config;
 using Amib.Threading;
-using Mono.Addins;
 using ZSim.Framework;
 using ZSim.Framework.Console;
 using ZSim.Region.Framework.Scenes;
@@ -56,12 +55,13 @@ using ZSim.Region.ScriptEngine.Shared.Api.Plugins;
 using ZSim.Region.ScriptEngine.Shared.ScriptBase;
 using ZSim.Region.ScriptEngine.XEngine.ScriptBase;
 using Timer = ZSim.Region.ScriptEngine.Shared.Api.Plugins.Timer;
+using ZSim.Addons.ZNILoader;
 
 using ScriptCompileQueue = ZSim.Framework.LocklessQueue<object[]>;
 
 namespace ZSim.Region.ScriptEngine.XEngine
 {
-    [Extension(Path = "/ZSim/RegionModules", NodeName = "RegionModule", Id = "XEngine")]
+    [PluginClass(Path="/ZSim/RegionModules", ShortName ="RegionModules", ID="XEngine")]
     public class XEngine : INonSharedRegionModule, IScriptModule, IScriptEngine
     {
         private static readonly ILog m_log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
@@ -556,8 +556,10 @@ namespace ZSim.Region.ScriptEngine.XEngine
             }
         }
 
+        [PluginMethod(Group="Scripts", Command = "xengine-status", ArgumentCount = 0, Usage = "Show status information on the script engine.")]
         private void HandleShowStatus(string module, string[] cmdparams)
         {
+
             if (!(MainConsole.Instance.ConsoleScene == null || MainConsole.Instance.ConsoleScene == m_Scene))
                 return;
 
