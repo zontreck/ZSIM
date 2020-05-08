@@ -30,7 +30,7 @@ using Mono.Addins;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion(ZSim.VersionInfo.AssemblyVersionNumber)]
+[assembly: AssemblyVersion(ZSim.Globals.VerNormal)]
 
 
 [assembly: Addin("ZSim.Region.OptionalModules", ZSim.VersionInfo.VersionNumber)]

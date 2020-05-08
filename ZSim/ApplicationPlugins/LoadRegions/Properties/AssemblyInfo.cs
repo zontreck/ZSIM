@@ -62,7 +62,7 @@ using Mono.Addins;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 
-[assembly : AssemblyVersion(ZSim.VersionInfo.AssemblyVersionNumber)]
+[assembly : AssemblyVersion(ZSim.Globals.VerNormal)]
 
 [assembly: Addin("ZSim.ApplicationPlugins.LoadRegions", ZSim.VersionInfo.VersionNumber)]
 [assembly: AddinDependency("OpenSim", ZSim.VersionInfo.VersionNumber)]

@@ -61,5 +61,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Revision and Build Numbers
 // by using the '*' as shown below:
 
-[assembly : AssemblyVersion(ZSim.VersionInfo.AssemblyVersionNumber)]
+[assembly : AssemblyVersion(ZSim.Globals.VerNormal)]
 
