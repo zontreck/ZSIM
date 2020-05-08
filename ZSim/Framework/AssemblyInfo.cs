@@ -59,4 +59,4 @@ using System.Runtime.InteropServices;
 //      Revision
 //
 
-[assembly : AssemblyVersion(ZSim.VersionInfo.AssemblyVersionNumber)]
+[assembly : AssemblyVersion(ZSim.Globals.VerNormal)]

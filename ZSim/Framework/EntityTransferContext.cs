@@ -36,8 +36,9 @@ namespace ZSim.Framework
     {
         public EntityTransferContext()
         {
-            InboundVersion = VersionInfo.SimulationServiceVersionAcceptedMax;
-            OutboundVersion = VersionInfo.SimulationServiceVersionSupportedMax;
+            
+            InboundVersion = Globals.SimulationServiceVersionAcceptedMax;
+            OutboundVersion = Globals.SimulationServiceVersionSupportedMax;
             WearablesCount = -1;
         }
 
